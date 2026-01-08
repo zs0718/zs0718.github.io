@@ -1,0 +1,282 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "幼圆", "Comic Sans MS", sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: #6b5b95;
+}
+
+ul {
+    list-style: none;
+}
+
+body {
+    background-color: #fcf1f7;
+    color: #333;
+}
+
+h3 {
+    font-size: 22px;
+    color: #e56b8c;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background-color: #fff9e6;
+    box-shadow: 0 2px 10px rgba(255, 179, 200, 0.2);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #ffc0cb;
+}
+
+.logo-text {
+    font-size: 18px;
+    font-weight: bold;
+    color: #e56b8c;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 12px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+    background-color: #ffdde1;
+    color: #d63384;
+    transform: scale(1.05);
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #e56b8c;
+    margin: 5px 0;
+    border-radius: 3px;
+    transition: all 0.3s;
+}
+
+.mobile-nav {
+    display: none;
+    padding: 15px 30px;
+    background-color: #fff;
+    border-top: 1px solid #ffdde1;
+}
+
+.mobile-nav li {
+    margin: 10px 0;
+}
+
+.mobile-nav a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #e56b8c;
+    font-size: 16px;
+}
+
+.notice {
+    background-color: #ffe0e9;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 14px;
+    color: #d63384;
+}
+
+.notice i {
+    margin-right: 5px;
+}
+
+.profile {
+    text-align: center;
+    padding: 50px 0;
+    background-color: #fff;
+    margin: 20px auto;
+    max-width: 1200px;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(255, 179, 200, 0.1);
+}
+
+.avatar img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 5px solid #ffdde1;
+    margin-bottom: 15px;
+}
+
+.signature {
+    font-size: 20px;
+    color: #e56b8c;
+    margin-bottom: 10px;
+}
+
+.profile-desc {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.social-links a {
+    font-size: 22px;
+    margin: 0 8px;
+    color: #ff85a2;
+    transition: all 0.3s;
+}
+
+.social-links a:hover {
+    transform: rotate(15deg) scale(1.2);
+}
+
+.article-list {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.article-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.article-card {
+    background-color: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s;
+}
+
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(255, 179, 200, 0.2);
+}
+
+.article-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.article-card h4 {
+    padding: 15px 15px 5px;
+    font-size: 16px;
+    color: #6b5b95;
+}
+
+.summary {
+    padding: 5px 15px;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.date {
+    padding: 5px 15px;
+    font-size: 12px;
+    color: #999;
+}
+
+.read-more {
+    display: inline-block;
+    margin: 10px 15px 15px;
+    padding: 6px 15px;
+    background-color: #ffc2d1;
+    color: #fff;
+    border-radius: 20px;
+    font-size: 13px;
+    transition: background 0.3s;
+}
+
+.read-more:hover {
+    background-color: #ff8fab;
+}
+
+.recommend {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.recommend-list {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.recommend-list a {
+    display: block;
+    padding: 8px 0;
+    color: #666;
+    transition: all 0.3s;
+}
+
+.recommend-list a:hover {
+    color: #e56b8c;
+    padding-left: 10px;
+}
+
+.tag-cloud {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.tag {
+    padding: 8px 15px;
+    background-color: #fce4ec;
+    color: #e91e63;
+    border-radius: 20px;
+    font-size: 13px；
+}

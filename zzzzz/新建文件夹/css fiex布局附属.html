@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Flex布局零基础入门 - 元气小袋</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "幼圆", "Comic Sans MS", sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: #6b5b95;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #e53e3e;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        body {
+            background-color: #fcf1f7;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background-color: #fff9e6;
+            box-shadow: 0 2px 10px rgba(255, 179, 200, 0.2);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #ffc0cb;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e56b8c;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 12px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            color: #6b5b95;
+        }
+
+        .nav-links a:hover {
+            background-color: #ffdde1;
+            color: #d63384;
+            transform: scale(1.05);
+        }
+
+        .mobile-nav {
+            display: none;
+            list-style: none;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            position: absolute;
+            top: 90px;
+            right: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        .mobile-nav li {
+            margin: 10px 0;
+        }
+
+        .mobile-nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .article-detail {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 30px;
+        }
+
+        .article-content {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .article-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #fee2ec;
+        }
+
+        .article-title {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            font-size: 14px;
+            color: #999;
+        }
+
+        .article-meta .item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .article-body {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .article-body img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .article-body h3 {
+            font-size: 22px;
+            color: #e56b8c;
+            margin: 25px 0 15px;
+        }
+
+        .article-body p {
+            margin-bottom: 15px;
+            text-indent: 2em;
+        }
+
+        .article-body code {
+            background-color: #fef7fb;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #e53e3e;
+            font-family: "Consolas", monospace;
+        }
+
+        .article-body pre {
+            background-color: #fef7fb;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow-x: auto;
+            border: 1px solid #fee2ec;
+        }
+
+        .article-body pre code {
+            color: #333;
+            padding: 0;
+        }
+
+        .article-footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #fee2ec;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .article-tags {
+            display: flex;
+            gap: 10px;
+        }
+
+        .tag {
+            padding: 5px 12px;
+            background-color: #fef7fb;
+            border-radius: 20px;
+            color: #666;
+            font-size: 12px;
+            border: 1px solid #fee2ec;
+        }
+
+        .article-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #999;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            color: #e53e3e;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .author-card {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .author-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #ffc0cb;
+            margin: 0 auto 15px;
+        }
+
+        .author-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .author-desc {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .author-follow {
+            padding: 6px 16px;
+            background-color: #e53e3e;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .author-follow:hover {
+            background-color: #d32f2f;
+        }
+
+        .related-articles {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .sidebar-title {
+            font-size: 18px;
+            color: #e56b8c;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .related-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .related-item {
+            display: flex;
+            gap: 10px;
+        }
+
+        .related-item img {
+            width: 80px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .related-item-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .related-item-title {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .related-item-date {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .comment-section {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .comment-title {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .comment-input {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .comment-input textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            outline: none;
+            resize: none;
+            min-height: 100px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .comment-input button {
+            padding: 8px 20px;
+            background-color: #e53e3e;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .comment-input button:hover {
+            background-color: #d32f2f;
+        }
+
+        .comment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .comment-item {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .comment-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .comment-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .comment-name {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .comment-time {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .comment-content {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .comment-actions {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .comment-action {
+            cursor: pointer;
+        }
+
+        .comment-action:hover {
+            color: #e53e3e;
+        }
+
+        footer {
+            background-color: #fdf2f8;
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .copyright {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .footer-social a {
+            color: #e53e3e;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+
+        .footer-social a:hover {
+            color: #d32f2f;
+        }
+
+        .footer-desc {
+            color: #999;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-nav {
+                display: block;
+            }
+
+            .article-detail {
+                grid-template-columns: 1fr;
+            }
+
+            .article-content {
+                padding: 20px;
+            }
+
+            .article-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <img src="蜡笔小新.webp" alt="博客Logo">
+                <span class="logo-text">元气小袋</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="实训指导书.html"><i class="fa-solid fa-house"></i> 首页</a></li>
+                <li><a href="博客文章列表页.html"><i class="fa-solid fa-book"></i> 文章列表</a></li>
+                <li><a href="articles/detail.html"><i class="fa-solid fa-star"></i> 推荐文章</a></li>
+                <li><a href="about.html"><i class="fa-solid fa-user"></i> 关于我</a></li>
+            </ul>
+            <ul class="mobile-nav" id="mobileNav">
+                <li><a href="实训指导书.html"><i class="fa-solid fa-house"></i> 首页</a></li>
+                <li><a href="博客文章列表页.html"><i class="fa-solid fa-book"></i> 文章列表</a></li>
+                <li><a href="articles/detail.html"><i class="fa-solid fa-star"></i> 推荐文章</a></li>
+                <li><a href="about.html"><i class="fa-solid fa-user"></i> 关于我</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="article-detail">
+        <div class="article-content">
+            <div class="article-header">
+                <h1 class="article-title">CSS Flex布局零基础入门</h1>
+                <div class="article-meta">
+                    <div class="item"><i class="fa-solid fa-calendar"></i> 2026-01-08</div>
+                    <div class="item"><i class="fa-solid fa-tag"></i> CSS</div>
+                    <div class="item"><i class="fa-solid fa-eye"></i> 1892 阅读</div>
+                    <div class="item"><i class="fa-solid fa-comment"></i> 45 评论</div>
+                </div>
+            </div>
+
+            <div class="article-body">
+                <img src="flex.jpg" alt="Flex布局封面">
+                <p>Flex布局（弹性布局）是CSS3引入的一种强大的布局方式，相比传统的浮动布局，Flex能更简单、灵活地实现元素的对齐、分布和自适应，是前端开发中必备的布局技能。</p>
+
+                <h3>一、Flex布局核心概念</h3>
+                <p>Flex布局由容器（flex container）和项目（flex item）组成，给父元素设置<code>display: flex</code>后，子元素就会成为Flex项目：</p>
+                <pre>
+&lt;div class="flex-container"&gt;
+  &lt;div class="flex-item"&gt;项目1&lt;/div&gt;
+  &lt;div class="flex-item"&gt;项目2&lt;/div&gt;
+  &lt;div class="flex-item"&gt;项目3&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+.flex-container {
+  display: flex; /* 开启Flex布局 */
+  width: 500px;
+  height: 300px;
+  background-color: #fef7fb;
+}
+.flex-item {
+  width: 100px;
+  height: 100px;
+  background-color: #ffc0cb;
+  margin: 5px;
+}
+&lt;/style&gt;</pre>
+
+                <h3>二、容器的核心属性</h3>
+                <p><strong>1. flex-direction</strong>：决定主轴方向</p>
+                <p>可选值：row（默认，水平从左到右）、row-reverse（水平从右到左）、column（垂直从上到下）、column-reverse（垂直从下到上）</p>
+
+                <p><strong>2. justify-content</strong>：主轴上的对齐方式</p>
+                <p>常用值：flex-start（默认，左对齐）、center（居中）、flex-end（右对齐）、space-between（两端对齐）、space-around（均匀分布）</p>
+
+                <p><strong>3. align-items</strong>：交叉轴上的对齐方式</p>
+                <p>常用值：stretch（默认，拉伸）、center（居中）、flex-start（顶部对齐）、flex-end（底部对齐）</p>
+
+                <h3>三、Flex实战案例：居中布局</h3>
+                <p>使用Flex实现元素水平垂直居中，是最常用的场景之一：</p>
+                <pre>
+&lt;div class="container"&gt;
+  &lt;div class="box"&gt;我是居中的内容&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+.container {
+  width: 400px;
+  height: 400px;
+  background-color: #fcf1f7;
+  display: flex;
+  justify-content: center; /* 水平居中 */
+  align-items: center; /* 垂直居中 */
+}
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: #e56b8c;
+  color: #fff;
+  text-align: center;
+  line-height: 200px;
+}
+&lt;/style&gt;</pre>
+
+                <h3>四、Flex布局优势</h3>
+                <p>1. 告别浮动和清除浮动的烦恼，代码更简洁；</p>
+                <p>2. 轻松实现元素的自适应和响应式布局；</p>
+                <p>3. 对齐方式灵活，能快速实现各种复杂布局；</p>
+                <p>4. 兼容性好，主流浏览器（IE10+）均支持。</p>
+
+                <h3>五、总结</h3>
+                <p>Flex布局是前端布局的“利器”，掌握它能极大提升布局效率。建议从基础属性入手，多动手实践，结合实际案例巩固知识点，很快就能熟练运用～</p>
+            </div>
+
+            <div class="article-footer">
+                <div class="article-tags">
+                    <span class="tag">CSS</span>
+                    <span class="tag">Flex布局</span>
+                    <span class="tag">前端布局</span>
+                </div>
+                <div class="article-actions">
+                    <div class="action-btn"><i class="fa-solid fa-thumbs-up"></i> 点赞(156)</div>
+                    <div class="action-btn"><i class="fa-solid fa-bookmark"></i> 收藏</div>
+                    <div class="action-btn"><i class="fa-solid fa-share-alt"></i> 分享</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="author-card">
+                <img src="头像3.jpg" alt="作者头像" class="author-avatar">
+                <h3 class="author-name">元气小袋</h3>
+                <p class="author-desc">前端萌新 | 热爱可爱风设计 | 分享学习日常</p>
+                <button class="author-follow"><i class="fa-solid fa-plus"></i> 关注</button>
+            </div>
+
+            <div class="related-articles">
+                <h3 class="sidebar-title"><i class="fa-solid fa-heart"></i> 相关推荐</h3>
+                <div class="related-list">
+                    <div class="related-item">
+                        <img src="grid.jpg" alt="Grid布局">
+                        <div class="related-item-text">
+                            <a href="css grid布局实战教程附属.html" class="related-item-title">CSS Grid布局实战教程</a>
+                            <span class="related-item-date">2026-01-15</span>
+                        </div>
+                    </div>
+                    <div class="related-item">
+                        <img src="111.webp" alt="可爱风样式">
+                        <div class="related-item-text">
+                            <a href="如何写出可爱网页样式附属.html" class="related-item-title">如何写出可爱风网页样式</a>
+                            <span class="related-item-date">2026-01-12</span>
+                        </div>
+                    </div>
+                    <div class="related-item">
+                        <img src="前端.png" alt="HTML5语义化">
+                        <div class="related-item-text">
+                            <a href="html5附属.html" class="related-item-title">HTML5语义化结构详解</a>
+                            <span class="related-item-date">2026-01-05</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="comment-section">
+        <h3 class="comment-title"><i class="fa-solid fa-comments"></i> 评论区 (45)</h3>
+        <div class="comment-input">
+            <textarea placeholder="写下你的想法..."></textarea>
+            <button>发布评论</button>
+        </div>
+        <div class="comment-list">
+            <div class="comment-item">
+                <div class="comment-header">
+                    <div class="comment-author">
+                        <img src="头像2.jpg" alt="用户头像" class="comment-avatar">
+                        <span class="comment-name">芋泥波波</span>
+                        <span class="comment-time">2026-01-09 09:15</span>
+                    </div>
+                </div>
+                <div class="comment-content">
+                    终于搞懂justify-content和align-items的区别了！之前一直记混😭
+                </div>
+                <div class="comment-actions">
+                    <span class="comment-action"><i class="fa-solid fa-thumbs-up"></i> 点赞(36)</span>
+                    <span class="comment-action"><i class="fa-solid fa-reply"></i> 回复</span>
+                </div>
+            </div>
+            <div class="comment-item">
+                <div class="comment-header">
+                    <div class="comment-author">
+                        <img src="小懒猫.jpg" alt="用户头像" class="comment-avatar">
+                        <span class="comment-name">代码小懒猫</span>
+                        <span class="comment-time">2026-01-09 14:20</span>
+                    </div>
+                </div>
+                <div class="comment-content">
+                    请问Flex布局和Grid布局该怎么选择呀？什么时候用Flex什么时候用Grid？
+                </div>
+                <div class="comment-actions">
+                    <span class="comment-action"><i class="fa-solid fa-thumbs-up"></i> 点赞(22)</span>
+                    <span class="comment-action"><i class="fa-solid fa-reply"></i> 回复</span>
+                </div>
+            </div>
+            <div class="comment-item">
+                <div class="comment-header">
+                    <div class="comment-author">
+                        <img src="头像.jpg" alt="作者头像" class="comment-avatar">
+                        <span class="comment-name">元气小袋</span>
+                        <span class="comment-time">2026-01-09 15:05</span>
+                        <span style="color: #e53e3e; font-size: 12px; margin-left: 5px;">作者</span>
+                    </div>
+                </div>
+                <div class="comment-content">
+                    @代码小懒猫 简单来说，Flex适合一维布局（单行/单列），Grid适合二维布局（多行多列）～日常开发中Flex用得更多，复杂布局可以结合两者使用哦～
+                </div>
+                <div class="comment-actions">
+                    <span class="comment-action"><i class="fa-solid fa-thumbs-up"></i> 点赞(48)</span>
+                    <span class="comment-action"><i class="fa-solid fa-reply"></i> 回复</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="copyright">© 2026 元气小袋 备案号：粤ICP备xxxxxxx号</div>
+        <div class="footer-social">
+            <a href="#"><i class="fa-brands fa-github"></i></a>
+            <a href="#"><i class="fa-brands fa-weibo"></i></a>
+            <a href="#"><i class="fa-brands fa-bilibili"></i></a>
+        </div>
+        <p class="footer-desc">愿我们都能在热爱的世界里闪闪发光 ✨</p>
+    </footer>
+
+    <script>
+        const mobileNav = document.getElementById('mobileNav');
+        const actionBtns = document.querySelectorAll('.action-btn');
+        actionBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (btn.innerHTML.includes('点赞')) {
+                    btn.innerHTML = '<i class="fa-solid fa-thumbs-up"></i> 已点赞';
+                    btn.style.color = '#e53e3e';
+                } else if (btn.innerHTML.includes('收藏')) {
+                    btn.innerHTML = '<i class="fa-solid fa-bookmark"></i> 已收藏';
+                    btn.style.color = '#e53e3e';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

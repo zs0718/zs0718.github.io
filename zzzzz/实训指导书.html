@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的6组小胃袋 - 元气小袋的前端小窝</title>
+    <!-- 外部样式表 -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 字体图标 -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 简单的基础样式重置（内联补充，避免样式丢失） -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        body {
+            background-color: #f9f7f5;
+            color: #333;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 头部导航 -->
+    <header class="header">
+        <nav class="nav-container">
+            <!-- Logo区域 -->
+            <div class="logo">
+                <img src="1.jpg" alt="博客Logo - 元气小袋" width="50" height="50">
+                <span class="logo-text">元气小袋</span>
+            </div>
+
+            <!-- 桌面端导航 -->
+            <ul class="nav-links">
+                <li><a href="实训指导书.html"><i class="fa-solid fa-house"></i> 首页</a></li>
+                <li><a href="博客文章列表页.html"><i class="fa-solid fa-book"></i> 文章列表</a></li>
+                <li><a href="articles/detail.html"><i class="fa-solid fa-star"></i> 推荐文章</a></li>
+                <li><a href="个人介绍.html"><i class="fa-solid fa-user"></i> 关于我</a></li>
+            </ul>
+        </nav>
+
+        <!-- 移动端导航 -->
+        <ul class="mobile-nav" id="mobileNav">
+            <li><a href="实训指导书.html"><i class="fa-solid fa-house"></i> 首页</a></li>
+            <li><a href="博客文章列表页.html"><i class="fa-solid fa-book"></i> 文章列表</a></li>
+            <li><a href="articles/detail.html"><i class="fa-solid fa-star"></i> 作品集</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-user"></i> 关于我</a></li>
+        </ul>
+    </header>
+
+    <!-- 通知栏 -->
+    <section class="notice">
+        <i class="fa-solid fa-bullhorn"></i>
+        <p>欢迎来到我的胃袋小窝~ 新文章每周五更新，记得来看哦！</p>
+    </section>
+
+    <!-- 个人简介 -->
+    <section class="profile">
+        <div class="avatar">
+            <img src="1.jpg" alt="个人头像 - 元气小袋" width="120" height="120">
+        </div>
+        <h2 class="signature">昨天饿，今天吃，明天撸，后天买，养成，养成，小胃袋✨</h2>
+        <p class="profile-desc">一名前端爱好者，分享HTML/CSS小技巧、日常学习笔记和生活碎碎念~</p>
+        <!-- 社交链接 -->
+        <div class="social-links">
+            <a href="#" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="#" title="微博"><i class="fa-brands fa-weibo"></i></a>
+            <a href="#" title="哔哩哔哩"><i class="fa-brands fa-bilibili"></i></a>
+        </div>
+    </section>
+
+    <!-- 精选文章 -->
+    <main class="article-list">
+        <h3><i class="fa-solid fa-newspaper"></i> 精选文章</h3>
+        <div class="article-cards">
+            <!-- 文章卡片1 -->
+            <div class="article-card">
+                <img src="前端.png" alt="HTML5语义化" class="article-img">
+                <h4><a href="html5附属.html">HTML5语义化结构详解</a></h4>
+                <p class="summary">本文介绍HTML5的语义化标签及在项目中的实际应用，让你的代码更规范！</p>
+                <p class="date"><i class="fa-solid fa-calendar"></i> 2026-01-05</p>
+                <a href="html5附属.html" class="read-more">阅读更多</a>
+            </div>
+
+            <!-- 文章卡片2 -->
+            <div class="article-card">
+                <img src="flex.jpg" alt="Flex布局" class="article-img">
+                <h4><a href="css fiex布局附属.html">CSS Flex布局零基础入门</a></h4>
+                <p class="summary">Flex布局太香了！3分钟掌握核心属性，轻松搞定页面居中与自适应~</p>
+                <p class="date"><i class="fa-solid fa-calendar"></i> 2026-01-08</p>
+                <a href="css fiex布局附属.html" class="read-more">阅读更多</a>
+            </div>
+
+            <!-- 文章卡片3 -->
+            <div class="article-card">
+                <img src="111.webp" alt="可爱风样式" class="article-img">
+                <h4><a href="如何写出可爱网页样式附属.html">如何写出可爱风网页样式</a></h4>
+                <p class="summary">马卡龙配色+圆角+灵动动画，手把手教你打造少女心满满的网页！</p>
+                <p class="date"><i class="fa-solid fa-calendar"></i> 2026-01-12</p>
+                <a href="如何写出可爱网页样式附属.html" class="read-more">阅读更多</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- 推荐阅读 -->
+    <section class="recommend">
+        <h3><i class="fa-solid fa-heart"></i> 推荐阅读</h3>
+        <div class="recommend-list">
+            <a href="articles/detail.html">→ 前端开发必备工具推荐</a>
+            <a href="articles/detail.html">→ 新手学习前端的避坑指南</a>
+            <a href="articles/detail.html">→ 如何用GitHub Pages部署网页</a>
+        </div>
+    </section>
+
+    <!-- 标签云 -->
+    <section class="tag-cloud">
+        <h3><i class="fa-solid fa-tags"></i> 我的技能&兴趣</h3>
+        <div class="tags">
+            <span class="tag">HTML5</span>
+            <span class="tag">CSS3</span>
+            <span class="tag">Flex布局</span>
+            <span class="tag">Grid布局</span>
+            <span class="tag">响应式设计</span>
+            <span class="tag">追剧</span>
+            <span class="tag">美食</span>
+            <span class="tag">旅行</span>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="copyright">© 2026 元气小袋 备案号：粤ICP备xxxxxxx号</div>
+        <div class="footer-social">
+            <a href="#" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="#" title="微博"><i class="fa-brands fa-weibo"></i></a>
+            <a href="#" title="哔哩哔哩"><i class="fa-brands fa-bilibili"></i></a>
+        </div>
+        <p class="footer-desc">愿我们都能在热爱的世界里闪闪发光 ✨</p>
+    </footer>
+</body>
+
+</html>

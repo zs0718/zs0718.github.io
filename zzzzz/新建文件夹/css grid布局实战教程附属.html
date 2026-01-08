@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Grid布局实战教程 - 元气小袋</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "幼圆", "Comic Sans MS", sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: #6b5b95;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #e53e3e;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        body {
+            background-color: #fcf1f7;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background-color: #fff9e6;
+            box-shadow: 0 2px 10px rgba(255, 179, 200, 0.2);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #ffc0cb;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e56b8c;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 12px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            color: #6b5b95;
+        }
+
+        .nav-links a:hover {
+            background-color: #ffdde1;
+            color: #d63384;
+            transform: scale(1.05);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #e56b8c;
+            cursor: pointer;
+        }
+
+        .mobile-nav {
+            display: none;
+            list-style: none;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            position: absolute;
+            top: 90px;
+            right: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        .mobile-nav li {
+            margin: 10px 0;
+        }
+
+        .mobile-nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .article-detail {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 30px;
+        }
+
+        .article-content {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .article-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #fee2ec;
+        }
+
+        .article-title {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            font-size: 14px;
+            color: #999;
+        }
+
+        .article-meta .item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .article-body {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .article-body img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .article-body h3 {
+            font-size: 22px;
+            color: #e56b8c;
+            margin: 25px 0 15px;
+        }
+
+        .article-body p {
+            margin-bottom: 15px;
+            text-indent: 2em;
+        }
+
+        .article-body code {
+            background-color: #fef7fb;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #e53e3e;
+            font-family: "Consolas", monospace;
+        }
+
+        .article-body pre {
+            background-color: #fef7fb;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow-x: auto;
+            border: 1px solid #fee2ec;
+        }
+
+        .article-body pre code {
+            color: #333;
+            padding: 0;
+        }
+
+        .article-footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #fee2ec;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .article-tags {
+            display: flex;
+            gap: 10px;
+        }
+
+        .tag {
+            padding: 5px 12px;
+            background-color: #fef7fb;
+            border-radius: 20px;
+            color: #666;
+            font-size: 12px;
+            border: 1px solid #fee2ec;
+        }
+
+        .article-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #999;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            color: #e53e3e;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .author-card {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .author-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #ffc0cb;
+            margin: 0 auto 15px;
+        }
+
+        .author-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .author-desc {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .author-follow {
+            padding: 6px 16px;
+            background-color: #e53e3e;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .author-follow:hover {
+            background-color: #d32f2f;
+        }
+
+        .related-articles {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .sidebar-title {
+            font-size: 18px;
+            color: #e56b8c;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .related-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .related-item {
+            display: flex;
+            gap: 10px;
+        }
+
+        .related-item img {
+            width: 80px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .related-item-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .related-item-title {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .related-item-date {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .comment-section {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .comment-title {
+            font-size: 22px;
+            color: #e56b8c;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .comment-form {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .comment-input {
+            width: 100%;
+            height: 100px;
+            border: 1px solid #fee2ec;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 16px;
+            resize: none;
+            margin-bottom: 15px;
+            transition: border-color 0.3s;
+        }
+
+        .comment-input:focus {
+            outline: none;
+            border-color: #ffc0cb;
+        }
+
+        .comment-submit {
+            background-color: #e56b8c;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .comment-submit:hover {
+            background-color: #d63384;
+        }
+
+        .comment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .comment-item {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .comment-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .comment-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #ffc0cb;
+        }
+
+        .comment-name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .comment-time {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .comment-content {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .comment-actions {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .comment-action {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .comment-action:hover {
+            color: #e53e3e;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .article-detail {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .article-title {
+                font-size: 24px;
+            }
+
+            .article-content {
+                padding: 20px;
+            }
+
+            .article-meta {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .comment-title {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 10px 15px;
+            }
+
+            .logo img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .logo-text {
+                font-size: 16px;
+            }
+
+            .article-detail {
+                margin: 15px auto;
+            }
+
+            .article-body {
+                font-size: 15px;
+            }
+
+            .related-item {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .related-item img {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="蜡笔小新.webp" alt="元气小袋">
+                <span class="logo-text">元气小袋 - 前端教程</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="实训指导书.html">首页</a></li>
+                <li><a href="博客文章列表页.html">CSS教程</a></li>
+                <li><a href="#">Grid布局</a></li>
+                <li><a href="#">关于我们</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileNav()">☰</button>
+            <ul class="mobile-nav" id="mobileNav">
+                <li><a href="实训指导书.html">首页</a></li>
+                <li><a href="博客文章列表页.html">CSS教程</a></li>
+                <li><a href="#">Grid布局</a></li>
+                <li><a href="#">关于我们</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="article-detail">
+        <div class="article-content">
+            <div class="article-header">
+                <h1 class="article-title">CSS Grid布局实战教程</h1>
+                <div class="article-meta">
+                    <div class="item">📅 发布时间：2024-05-20</div>
+                    <div class="item">👨‍💻 作者：元气小袋</div>
+                    <div class="item">👁️ 阅读量：1258</div>
+                </div>
+            </div>
+            <div class="article-body">
+                <h3>一、Grid布局介绍</h3>
+                <p>CSS Grid 布局是一种二维网格布局系统，旨在彻底改变我们设计网页的方式。与Flexbox的一维布局不同，Grid布局可以同时处理行和列，让布局设计更加灵活和强大。</p>
+                <p>Grid布局由容器（container）和项目（item）组成，通过定义网格行和列，我们可以精确控制每个项目的位置和大小。</p>
+
+                <h3>二、基本语法</h3>
+                <p>要使用Grid布局，首先需要给容器设置<code>display: grid</code>，然后通过<code>grid-template-columns</code>和<code>grid-template-rows</code>定义列和行的尺寸。
+                </p>
+                <pre><code>.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 100px 200px;
+  gap: 20px;
+}</code></pre>
+
+                <h3>三、实战案例</h3>
+                <p>下面我们通过一个实战案例来理解Grid布局的使用，实现一个响应式的卡片布局：</p>
+                <img src="grid-demo.png" alt="Grid布局实战案例">
+                <pre><code>.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  padding: 20px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}</code></pre>
+                <p>通过<code>repeat(auto-fit, minmax(250px, 1fr))</code>可以实现自适应的列数，当屏幕宽度变化时，列数会自动调整，实现响应式布局。</p>
+
+                <h3>四、Grid布局优势</h3>
+                <p>Grid布局相比传统的浮动布局和Flex布局，具有更强大的二维布局能力，能够轻松实现复杂的布局结构，比如网格布局、圣杯布局、双飞翼布局等。同时，Grid布局的响应式设计更加简洁，减少了媒体查询的使用。
+                </p>
+            </div>
+            <div class="article-footer">
+                <div class="article-tags">
+                    <span class="tag">CSS</span>
+                    <span class="tag">Grid布局</span>
+                    <span class="tag">前端开发</span>
+                    <span class="tag">响应式布局</span>
+                </div>
+                <div class="article-actions">
+                    <div class="action-btn">👍 点赞 (128)</div>
+                    <div class="action-btn">⭐ 收藏 (86)</div>
+                    <div class="action-btn">🔗 分享</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="author-card">
+                <img src="author-avatar.png" alt="作者头像" class="author-avatar">
+                <h3 class="author-name">元气小袋</h3>
+                <p class="author-desc">前端开发工程师 | 专注CSS/HTML教程分享</p>
+                <button class="author-follow">关注作者</button>
+            </div>
+
+            <div class="related-articles">
+                <h3 class="sidebar-title">📚 相关推荐</h3>
+                <div class="related-list">
+                    <div class="related-item">
+                        <img src="related1.jpg" alt="相关文章1">
+                        <div class="related-item-text">
+                            <div class="related-item-title">Flex布局从入门到精通</div>
+                            <div class="related-item-date">2024-04-15</div>
+                        </div>
+                    </div>
+                    <div class="related-item">
+                        <img src="related2.jpg" alt="相关文章2">
+                        <div class="related-item-text">
+                            <div class="related-item-title">CSS3新特性大全</div>
+                            <div class="related-item-date">2024-05-08</div>
+                        </div>
+                    </div>
+                    <div class="related-item">
+                        <img src="related3.jpg" alt="相关文章3">
+                        <div class="related-item-text">
+                            <div class="related-item-title">响应式布局实战技巧</div>
+                            <div class="related-item-date">2024-05-12</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="comment-section">
+        <h3 class="comment-title">💬 评论区</h3>
+        <div class="comment-form">
+            <textarea class="comment-input" placeholder="请输入你的评论..."></textarea>
+            <button class="comment-submit">提交评论</button>
+        </div>
+        <div class="comment-list">
+            <div class="comment-item">
+                <div class="comment-header">
+                    <div class="comment-author">
+                        <img src="头像2.jpg" alt="用户头像" class="comment-avatar">
+                        <span class="comment-name">前端小白</span>
+                    </div>
+                    <span class="comment-time">2024-05-20 10:25</span>
+                </div>
+                <div class="comment-content">
+                    教程写得非常详细，终于搞懂Grid布局了，感谢作者！
+                </div>
+                <div class="comment-actions">
+                    <div class="comment-action">👍 点赞 (28)</div>
+                    <div class="comment-action">💬 回复</div>
+                </div>
+            </div>
+            <div class="comment-item">
+                <div class="comment-header">
+                    <div class="comment-author">
+                        <img src="头像6.jpg" alt="用户头像" class="comment-avatar">
+                        <span class="comment-name">资深切图仔</span>
+                    </div>
+                    <span class="comment-time">2024-05-20 14:38</span>
+                </div>
+                <div class="comment-content">
+                    Grid布局在复杂布局中真的太好用了，比Flex更适合二维布局场景，建议大家都学一下！
+                </div>
+                <div class="comment-actions">
+                    <div class="comment-action">👍 点赞 (45)</div>
+                    <div class="comment-action">💬 回复</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMobileNav() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.style.display = mobileNav.style.display === 'block' ? 'none' : 'block';
+        }
+
+        document.addEventListener('click', function (e) {
+            const mobileNav = document.getElementById('mobileNav');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            if (!menuBtn.contains(e.target) && !mobileNav.contains(e.target)) {
+                mobileNav.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>
