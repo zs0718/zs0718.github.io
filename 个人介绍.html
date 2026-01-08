@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的6组小胃袋 - 元气小袋的前端小窝</title>
+    <!-- 外部样式表 -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 字体图标 -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 简单的基础样式重置（内联补充，避免样式丢失） -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "幼圆", "Comic Sans MS", sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: #6b5b95;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        body {
+            background-color: #fcf1f7;
+            color: #333;
+        }
+
+        h3 {
+            font-size: 22px;
+            color: #e56b8c;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background-color: #fff9e6;
+            box-shadow: 0 2px 10px rgba(255, 179, 200, 0.2);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #ffc0cb;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e56b8c;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 12px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: #ffdde1;
+            color: #d63384;
+            transform: scale(1.05);
+        }
+
+        .mobile-nav {
+            display: none;
+            list-style: none;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            position: absolute;
+            top: 90px;
+            right: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        .mobile-nav li {
+            margin: 10px 0;
+        }
+
+        .mobile-nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* 通知栏样式 */
+        .notice {
+            background: #ffe8e8;
+            color: #e66767;
+            padding: 10px 20px;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        /* 新增：个人介绍板块样式 */
+        .personal-intro {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .personal-intro h2 {
+            color: #e66767;
+            margin-bottom: 15px;
+            font-size: 22px;
+            border-left: 4px solid #e66767;
+            padding-left: 10px;
+        }
+
+        .intro-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .intro-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .intro-text p {
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        .intro-img {
+            flex: 0 0 200px;
+        }
+
+        .intro-img img {
+            border-radius: 50%;
+            border: 4px solid #ffe8e8;
+        }
+
+        /* 新增：技能条样式 */
+        .skills-section {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .skills-section h2 {
+            color: #e66767;
+            margin-bottom: 20px;
+            font-size: 22px;
+            border-left: 4px solid #e66767;
+            padding-left: 10px;
+        }
+
+        .skill-item {
+            margin-bottom: 15px;
+        }
+
+        .skill-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .skill-bar {
+            width: 100%;
+            height: 12px;
+            background: #f5f5f5;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            border-radius: 6px;
+            background: linear-gradient(90deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            transition: width 1s ease-in-out;
+        }
+
+        /* 不同技能的进度值 */
+        .skill-progress.html {
+            width: 90%;
+        }
+
+        .skill-progress.css {
+            width: 85%;
+        }
+
+        .skill-progress.flex {
+            width: 80%;
+        }
+
+        .skill-progress.js {
+            width: 65%;
+        }
+
+        .skill-progress.react {
+            width: 10%;
+        }
+
+        /* 新增：下一页按钮样式 */
+        .next-page {
+            max-width: 1000px;
+            margin: 20px auto;
+            text-align: right;
+        }
+
+        .next-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #e66767;
+            color: #fff;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+
+        .next-btn:hover {
+            background: #d45858;
+        }
+
+        /* 页脚样式（保留原有） */
+        footer {
+            background: #fff;
+            padding: 20px;
+            text-align: center;
+            margin-top: 30px;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .copyright {
+            margin-bottom: 10px;
+        }
+
+        .footer-social {
+            margin-bottom: 10px;
+        }
+
+        .footer-social a {
+            margin: 0 8px;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .footer-desc {
+            color: #999;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 头部导航（完全保留） -->
+    <header class="header">
+        <nav class="nav-container">
+            <!-- Logo区域 -->
+            <div class="logo">
+                <img src="1.jpg" alt="博客Logo - 元气小袋" width="50" height="50">
+                <span class="logo-text">元气小袋</span>
+            </div>
+
+            <!-- 桌面端导航 -->
+            <ul class="nav-links">
+                <li><a href="实训指导书.html"><i class="fa-solid fa-house"></i> 首页</a></li>
+                <li><a href="博客文章列表页.html"><i class="fa-solid fa-book"></i> 文章列表</a></li>
+                <li><a href="做.html"><i class="fa-solid fa-star"></i> 作品集</a></li>
+                <li><a href="个人介绍.html"><i class="fa-solid fa-user"></i> 关于我</a></li>
+            </ul>
+        </nav>
+
+        <!-- 移动端导航 -->
+        <ul class="mobile-nav" id="mobileNav">
+            <li><a href="实训指导书.html"><i class="fa-solid fa-house"></i> 首页</a></li>
+            <li><a href="博客文章列表页.html"><i class="fa-solid fa-book"></i> 文章列表</a></li>
+            <li><a href="做.html"><i class="fa-solid fa-star"></i> 作品集</a></li>
+            <li><a href="个人介绍.html"><i class="fa-solid fa-user"></i> 关于我</a></li>
+        </ul>
+    </header>
+
+    <!-- 通知栏（保留） -->
+    <section class="notice">
+        <i class="fa-solid fa-bullhorn"></i>
+        <p>欢迎来到我的胃袋小窝~ 新文章每周五更新，记得来看哦！</p>
+    </section>
+
+    <!-- 新增：个人介绍板块 -->
+    <section class="personal-intro">
+        <h2><i class="fa-solid fa-user-circle"></i> 关于我</h2>
+        <div class="intro-content">
+            <div class="intro-text">
+                <p>哈喽～我是帅气小张，一名热爱前端的00后程序员✨</p>
+                <p>从大二接触前端开始，就沉迷于用HTML/CSS搭建好看又好用的网页，至今已有3年的学习&实践经验。</p>
+                <p>擅长用语义化HTML构建页面结构，用灵活的CSS布局（Flex/Grid）实现响应式设计，同时也在学习JavaScript和React框架，希望能成为全栈前端开发者～</p>
+                <p>除了写代码，日常喜欢研究美食、追番、旅行，坚信「认真生活，才能认真写代码」～</p>
+            </div>
+            <div class="intro-img">
+                <img src="4.jpg" alt="个人头像 - 元气小袋" width="200" height="200">
+            </div>
+        </div>
+    </section>
+
+    <!-- 新增：技能条板块 -->
+    <section class="skills-section">
+        <h2><i class="fa-solid fa-code"></i> 我的技能值</h2>
+        <div class="skill-list">
+            <div class="skill-item">
+                <div class="skill-title">
+                    <span>HTML5 语义化</span>
+                    <span>90%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress html"></div>
+                </div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-title">
+                    <span>CSS3 (含Flex/Grid)</span>
+                    <span>85%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress css"></div>
+                </div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-title">
+                    <span>Flex 布局</span>
+                    <span>80%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress flex"></div>
+                </div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-title">
+                    <span>JavaScript 基础</span>
+                    <span>10%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress js"></div>
+                </div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-title">
+                    <span>React 入门</span>
+                    <span>50%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress react"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 新增：下一页按钮 -->
+    <div class="next-page">
+        <a href="skills-detail.html" class="next-btn"><i class="fa-solid fa-arrow-right"></i> 查看更多技能详情</a>
+    </div>
+
+    <!-- 页脚（完全保留） -->
+    <footer>
+        <div class="copyright">© 2026 元气小袋 备案号：粤ICP备xxxxxxx号</div>
+        <div class="footer-social">
+            <a href="#" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="#" title="微博"><i class="fa-brands fa-weibo"></i></a>
+            <a href="#" title="哔哩哔哩"><i class="fa-brands fa-bilibili"></i></a>
+        </div>
+        <p class="footer-desc">愿我们都能在热爱的世界里闪闪发光 ✨</p>
+    </footer>
+</body>
+
+</html>

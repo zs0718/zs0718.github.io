@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端学习笔记 - 元气小袋</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "幼圆", "Comic Sans MS", sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: #6b5b95;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #e53e3e;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        body {
+            background-color: #fcf1f7;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background-color: #fff9e6;
+            box-shadow: 0 2px 10px rgba(255, 179, 200, 0.2);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #ffc0cb;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e56b8c;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 12px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            color: #6b5b95;
+        }
+
+        .nav-links a:hover {
+            background-color: #ffdde1;
+            color: #d63384;
+            transform: scale(1.05);
+        }
+
+        .mobile-nav {
+            display: none;
+            list-style: none;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            position: absolute;
+            top: 90px;
+            right: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        .mobile-nav li {
+            margin: 10px 0;
+        }
+
+        .mobile-nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .article-detail {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 30px;
+        }
+
+        .article-content {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .article-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #fee2ec;
+        }
+
+        .article-title {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            font-size: 14px;
+            color: #999;
+        }
+
+        .article-meta .item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .article-body {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .article-body img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .article-body h3 {
+            font-size: 22px;
+            color: #e56b8c;
+            margin: 25px 0 15px;
+        }
+
+        .article-body p {
+            margin-bottom: 15px;
+            text-indent: 2em;
+        }
+
+        .article-body code {
+            background-color: #fef7fb;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #e53e3e;
+            font-family: "Consolas", monospace;
+        }
+
+        .article-body pre {
+            background-color: #fef7fb;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow-x: auto;
+            border: 1px solid #fee2ec;
+        }
+
+        .article-body pre code {
+            color: #333;
+            padding: 0;
+        }
+
+        .article-footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #fee2ec;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .article-tags {
+            display: flex;
+            gap: 10px;
+        }
+
+        .tag {
+            padding: 5px 12px;
+            background-color: #fef7fb;
+            border-radius: 20px;
+            color: #666;
+            font-size: 12px;
+            border: 1px solid #fee2ec;
+        }
+
+        .article-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #999;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            color: #e53e3e;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .author-card {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .author-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #ffc0cb;
+            margin: 0 auto 15px;
+        }
+
+        .author-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .author-desc {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .author-follow {
+            padding: 6px 16px;
+            background-color: #e53e3e;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .author-follow:hover {
+            background-color: #d32f2f;
+        }
+
+        .related-articles {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .sidebar-title {
+            font-size: 18px;
+            color: #e56b8c;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .related-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .related-item {
+            display: flex;
+            gap: 10px;
+        }
+
+        .related-item img {
+            width: 80px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .related-item-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .related-item-title {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .related-item-date {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .comment-section {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .comment-title {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .comment-input {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .comment-input textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            outline: none;
+            resize: none;
+            min-height: 100px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .comment-input button {
+            padding: 8px 20px;
+            background-color: #e53e3e;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .comment-input button:hover {
+            background-color: #d32f2f;
+        }
+
+        .comment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .comment-item {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .comment-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .comment-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .comment-name {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .comment-time {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .comment-content {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .comment-actions {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .comment-action {
+            cursor: pointer;
+        }
+
+        .comment-action:hover {
+            color: #e53e3e;
+        }
+
+        footer {
+            background-color: #fdf2f8;
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .copyright {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .footer-social a {
+            color: #e53e3e;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+
+        .footer-social a:hover {
+            color: #d32f2f;
+        }
+
+        .footer-desc {
+            color: #999;
+            font-size: 14px;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-nav {
+                display: block;
+            }
+
+            .article-detail {
+                grid-template-columns: 1fr;
+            }
+
+            .article-content {
+                padding: 20px;
+            }
+
+            .article-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <img src="1.jpg" alt="博客Logo">
+                <span class="logo-text">元气小袋</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="实训指导书.html"><i class="fa-solid fa-house"></i> 首页</a></li>
+                <li><a href="博客文章列表页.html"><i class="fa-solid fa-book"></i> 笔记列表</a></li>
+                <li><a href="articles/detail.html"><i class="fa-solid fa-star"></i> 精选笔记</a></li>
+                <li><a href="about.html"><i class="fa-solid fa-user"></i> 关于我</a></li>
+            </ul>
+            <ul class="mobile-nav" id="mobileNav">
+                <li><a href="实训指导书.html"><i class="fa-solid fa-house"></i> 首页</a></li>
+                <li><a href="博客文章列表页.html"><i class="fa-solid fa-book"></i> 笔记列表</a></li>
+                <li><a href="articles/detail.html"><i class="fa-solid fa-star"></i> 精选笔记</a></li>
+                <li><a href="about.html"><i class="fa-solid fa-user"></i> 关于我</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="article-detail">
+        <div class="article-content">
+            <div class="article-header">
+                <h1 class="article-title">前端学习笔记 - 核心知识点总结</h1>
+                <div class="article-meta">
+                    <div class="item"><i class="fa-solid fa-calendar"></i> 2026-01-12</div>
+                    <div class="item"><i class="fa-solid fa-tag"></i> 前端/学习笔记</div>
+                    <div class="item"><i class="fa-solid fa-eye"></i> 2156 阅读</div>
+                    <div class="item"><i class="fa-solid fa-comment"></i> 68 评论</div>
+                </div>
+            </div>
+
+            <div class="article-body">
+                <img src="111.webp" alt="前端学习笔记封面">
+                <p>前端学习是一个循序渐进的过程，从基础的HTML/CSS/JS到框架、工程化，每一步都需要扎实的积累。这份笔记整理了前端学习的核心知识点和学习方法，帮助新手少走弯路，高效入门前端开发～</p>
+
+                <h3>一、基础阶段：HTML+CSS核心</h3>
+                <p>前端的根基是HTML（结构）和CSS（样式），重点掌握语义化和布局技巧：</p>
+                <pre>
+/* CSS布局核心 - Flex常用配置 */
+.flex-container {
+  display: flex;
+  justify-content: center; /* 水平居中 */
+  align-items: center;     /* 垂直居中 */
+  flex-wrap: wrap;         /* 自动换行 */
+  gap: 15px;               /* 元素间距 */
+}
+
+/* CSS Grid布局基础 */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 三等分 */
+  grid-template-rows: auto;
+  gap: 20px;
+}
+
+/* 响应式基础 - 媒体查询 */
+@media (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: 1fr; /* 移动端单列 */
+  }
+}</pre>
+
+                <h3>二、JavaScript核心：从基础到进阶</h3>
+                <p>1. 基础语法：变量、数据类型、流程控制、函数、数组/对象操作；</p>
+                <p>2. 进阶概念：作用域、闭包、原型链、异步编程（Promise/async-await）；</p>
+                <p>3. DOM操作：事件处理、节点增删改查、表单交互；</p>
+                <pre>
+// JS异步编程示例
+async function fetchData() {
+  try {
+    const response = await fetch('/api/data');
+    const data = await response.json();
+    console.log('数据请求成功：', data);
+    return data;
+  } catch (error) {
+    console.error('请求失败：', error);
+  }
+}
+
+// 数组常用方法
+const arr = [1, 2, 3, 4];
+const newArr = arr.filter(item => item > 2) // 筛选
+                  .map(item => item * 2);    // 映射
+// 结果：[6, 8]</pre>
+
+                <h3>三、学习方法：高效积累技巧</h3>
+                <p>1. 边学边练：每学一个知识点，立刻写demo验证，比如学完Flex就做一个布局小案例；</p>
+                <p>2. 笔记整理：用思维导图/Notion梳理知识点，定期复盘（推荐每周回顾）；</p>
+                <p>3. 实战项目：从todo-list、轮播图等小项目开始，逐步过渡到仿站、全栈小应用；</p>
+                <p>4. 调试技巧：熟练使用Chrome DevTools，学会断点调试、查看网络请求。</p>
+
+                <h3>四、工程化与框架学习</h3>
+                <p>基础扎实后，进阶学习框架和工程化工具：</p>
+                <pre>
+/* 框架学习路径 */
+// 1. Vue.js：上手快，适合新手，先学Vue2再过渡Vue3+Vite
+// 2. React：侧重组件化思想，配合TypeScript学习
+// 3. 工程化：Webpack/Vite、ESLint、Git版本控制
+
+// 包管理工具常用命令
+npm install // 安装依赖
+npm run dev // 启动开发服务
+npm run build // 打包构建</pre>
+
+                <h3>五、学习总结</h3>
+                <p>前端学习没有捷径，核心是“多练+多总结”：基础阶段不要急于求成，框架阶段注重理解思想而非死记语法，工程化阶段培养规范的开发习惯。保持每天学习的节奏，遇到问题先自己查文档（MDN/官方文档），坚持3-6个月就能具备基础的开发能力啦～
+                </p>
+            </div>
+
+            <div class="article-footer">
+                <div class="article-tags">
+                    <span class="tag">前端学习</span>
+                    <span class="tag">HTML/CSS/JS</span>
+                    <span class="tag">学习笔记</span>
+                </div>
+                <div class="article-actions">
+                    <div class="action-btn"><i class="fa-solid fa-thumbs-up"></i> 点赞(218)</div>
+                    <div class="action-btn"><i class="fa-solid fa-bookmark"></i> 收藏</div>
+                    <div class="action-btn"><i class="fa-solid fa-share-alt"></i> 分享</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="author-card">
+                <img src="1.jpg" alt="作者头像" class="author-avatar">
+                <h3 class="author-name">元气小袋</h3>
+                <p class="author-desc">前端萌新 | 记录学习日常 | 分享笔记干货</p>
+                <button class="author-follow"><i class="fa-solid fa-plus"></i> 关注</button>
+            </div>
+
+            <div class="related-articles">
+                <h3 class="sidebar-title"><i class="fa-solid fa-heart"></i> 相关笔记</h3>
+                <div class="related-list">
+                    <div class="related-item">
+                        <img src="flex.jpg" alt="Flex布局">
+                        <div class="related-item-text">
+                            <a href="css fiex布局附属.html" class="related-item-title">Flex布局零基础入门笔记</a>
+                            <span class="related-item-date">2026-01-08</span>
+                        </div>
+                    </div>
+                    <div class="related-item">
+                        <img src="grid.jpg" alt="Grid布局">
+                        <div class="related-item-text">
+                            <a href="css grid布局实战教程附属.html" class="related-item-title">Grid布局实战学习笔记</a>
+                            <span class="related-item-date">2026-01-15</span>
+                        </div>
+                    </div>
+                    <div class="related-item">
+                        <img src="6.jpg" alt="HTML5语义化">
+                        <div class="related-item-text">
+                            <a href="html5附属.html" class="related-item-title">HTML5语义化学习总结</a>
+                            <span class="related-item-date">2026-01-05</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="comment-section">
+        <h3 class="comment-title"><i class="fa-solid fa-comments"></i> 评论区 (68)</h3>
+        <div class="comment-input">
+            <textarea placeholder="写下你的学习心得..."></textarea>
+            <button>发布评论</button>
+        </div>
+        <div class="comment-list">
+            <div class="comment-item">
+                <div class="comment-header">
+                    <div class="comment-author">
+                        <img src="11.jpg" alt="用户头像" class="comment-avatar">
+                        <span class="comment-name">前端小白一枚</span>
+                        <span class="comment-time">2026-01-13 11:30</span>
+                    </div>
+                </div>
+                <div class="comment-content">
+                    笔记整理得太用心了！我一直搞不懂async-await，看了示例一下子就懂了✨
+                </div>
+                <div class="comment-actions">
+                    <span class="comment-action"><i class="fa-solid fa-thumbs-up"></i> 点赞(52)</span>
+                    <span class="comment-action"><i class="fa-solid fa-reply"></i> 回复</span>
+                </div>
+            </div>
+            <div class="comment-item">
+                <div class="comment-header">
+                    <div class="comment-author">
+                        <img src="1.jpg" alt="用户头像" class="comment-avatar">
+                        <span class="comment-name">努力学前端的小杨</span>
+                        <span class="comment-time">2026-01-13 16:45</span>
+                    </div>
+                </div>
+                <div class="comment-content">
+                    请问新手先学Vue还是React呀？纠结了好久😣
+                </div>
+                <div class="comment-actions">
+                    <span class="comment-action"><i class="fa-solid fa-thumbs-up"></i> 点赞(28)</span>
+                    <span class="comment-action"><i class="fa-solid fa-reply"></i> 回复</span>
+                </div>
+            </div>
+            <div class="comment-item">
+                <div class="comment-header">
+                    <div class="comment-author">
+                        <img src="2.jpg" alt="作者头像" class="comment-avatar">
+                        <span class="comment-name">元气小袋</span>
+                        <span class="comment-time">2026-01-13 17:20</span>
+                        <span style="color: #e53e3e; font-size: 12px; margin-left: 5px;">作者</span>
+                    </div>
+                </div>
+                <div class="comment-content">
+                    @努力学前端的小杨 新手建议先学Vue～Vue的文档更友好，上手快，能快速做出东西增加成就感；有了基础再学React，理解组件化和hooks会更轻松😜
+                </div>
+                <div class="comment-actions">
+                    <span class="comment-action"><i class="fa-solid fa-thumbs-up"></i> 点赞(66)</span>
+                    <span class="comment-action"><i class="fa-solid fa-reply"></i> 回复</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="copyright">© 2026 元气小袋 备案号：粤ICP备xxxxxxx号</div>
+        <div class="footer-social">
+            <a href="#"><i class="fa-brands fa-github"></i></a>
+            <a href="#"><i class="fa-brands fa-weibo"></i></a>
+            <a href="#"><i class="fa-brands fa-bilibili"></i></a>
+        </div>
+        <p class="footer-desc">愿我们都能在前端学习的路上稳步前行 ✨</p>
+    </footer>
+
+    <script>
+        const mobileNav = document.getElementById('mobileNav');
+        const actionBtns = document.querySelectorAll('.action-btn');
+        actionBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (btn.innerHTML.includes('点赞')) {
+                    btn.innerHTML = '<i class="fa-solid fa-thumbs-up"></i> 已点赞';
+                    btn.style.color = '#e53e3e';
+                } else if (btn.innerHTML.includes('收藏')) {
+                    btn.innerHTML = '<i class="fa-solid fa-bookmark"></i> 已收藏';
+                    btn.style.color = '#e53e3e';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

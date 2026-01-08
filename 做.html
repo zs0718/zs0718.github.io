@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的6组小胃袋 - 作品展示</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 全局重置与基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", sans-serif;
+        }
+
+        body {
+            background-color: #f8f4f6;
+            color: #333;
+        }
+
+        /* 头部导航样式 */
+        .header {
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #e56487;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 0;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #e56487;
+            border-bottom: 2px solid #e56487;
+        }
+
+        .mobile-nav {
+            display: none;
+            list-style: none;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .mobile-nav li {
+            margin-bottom: 15px;
+        }
+
+        .mobile-nav a {
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+        }
+
+        /* 作品展示专属样式 */
+        .works-profile {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: #f9f5f8;
+            margin: 0;
+            border-radius: 0;
+        }
+
+        .works-profile h2 {
+            color: #e56487;
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .works-profile p {
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .works-list {
+            padding: 50px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .works-list h3 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0e6ea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .works-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .work-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .work-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .work-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .work-info {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .work-info h4 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .work-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 12px 0;
+        }
+
+        .work-tag {
+            font-size: 12px;
+            padding: 5px 12px;
+            background: #f0e6ea;
+            color: #e56487;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .work-desc {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .work-links {
+            display: flex;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .work-link {
+            padding: 10px 20px;
+            background: #e56487;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .work-link:hover {
+            background: #d45278;
+            transform: translateY(-2px);
+        }
+
+        .work-link.secondary {
+            background: #fff;
+            color: #e56487;
+            border: 1px solid #e56487;
+        }
+
+        .work-link.secondary:hover {
+            background: #fef4f7;
+        }
+
+        /* 页脚样式 */
+        footer {
+            background-color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 60px;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .copyright {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .footer-social a {
+            color: #e56487;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            color: #d45278;
+            transform: translateY(-3px);
+        }
+
+        .footer-desc {
+            font-size: 14px;
+            color: #999;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-nav {
+                display: block;
+            }
+
+            .works-profile {
+                padding: 40px 20px;
+            }
+
+            .works-profile h2 {
+                font-size: 24px;
+            }
+
+            .works-list {
+                padding: 30px 20px;
+            }
+
+            .work-card {
+                height: auto;
+            }
+
+            .work-links {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 头部导航 -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <img src="1.jpg" alt="博客Logo">
+                <span class="logo-text">元气小袋</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="实训指导书.html"><i class="fa-solid fa-house"></i> 首页</a></li>
+                <li><a href="博客文章列表页.html"><i class="fa-solid fa-book"></i> 文章列表</a></li>
+                <li><a href="做.html"><i class="fa-solid fa-star"></i> 推荐文章</a></li>
+                <li><a href="about.html"><i class="fa-solid fa-user"></i> 关于我</a></li>
+            </ul>
+        </nav>
+        <ul class="mobile-nav" id="mobileNav">
+            <li><a href="实训指导书.html"><i class="fa-solid fa-house"></i> 首页</a></li>
+            <li><a href="博客文章列表页.html"><i class="fa-solid fa-book"></i> 文章列表</a></li>
+            <li><a href="做.html"><i class="fa-solid fa-star"></i> 作品集</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-user"></i> 关于我</a></li>
+        </ul>
+    </header>
+
+    <!-- 作品简介 -->
+    <section class="works-profile">
+        <h2>✨ 我的前端作品集 ✨</h2>
+        <p>这里是我学习前端过程中完成的实战项目合集，包含静态页面开发、响应式设计、交互效果等内容。每一个作品都记录了我的成长，从零基础入门到能够独立完成页面搭建，持续探索前端的无限可能～</p>
+    </section>
+
+    <!-- 作品列表 -->
+    <main class="works-list">
+        <h3><i class="fa-solid fa-palette"></i> 作品展示</h3>
+        <div class="works-cards">
+            <!-- 作品1 -->
+            <div class="work-card">
+                <img src="2.jpg" alt="HTML5语义化官网" class="work-img">
+                <div class="work-info">
+                    <h4>HTML5语义化官网搭建</h4>
+                    <div class="work-tags">
+                        <span class="work-tag">HTML5</span>
+                        <span class="work-tag">语义化标签</span>
+                        <span class="work-tag">静态页面</span>
+                    </div>
+                    <p class="work-desc">基于HTML5语义化标签开发的企业官网静态页面，严格遵循W3C规范，提升页面可读性和SEO友好度，适配PC端主流分辨率。</p>
+                    <div class="work-links">
+                        <a href="#" class="work-link"><i class="fa-solid fa-eye"></i> 在线预览</a>
+                        <a href="#" class="work-link secondary"><i class="fa-solid fa-code"></i> 查看源码</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 作品2 -->
+            <div class="work-card">
+                <img src="flex.jpg" alt="Flex响应式布局商城" class="work-img">
+                <div class="work-info">
+                    <h4>Flex响应式商城页面</h4>
+                    <div class="work-tags">
+                        <span class="work-tag">CSS Flex</span>
+                        <span class="work-tag">响应式设计</span>
+                        <span class="work-tag">自适应布局</span>
+                    </div>
+                    <p class="work-desc">使用Flex布局实现的移动端优先商城首页，适配手机、平板、PC多端显示，包含商品卡片、导航栏、轮播区等核心模块。</p>
+                    <div class="work-links">
+                        <a href="#" class="work-link"><i class="fa-solid fa-eye"></i> 在线预览</a>
+                        <a href="#" class="work-link secondary"><i class="fa-solid fa-code"></i> 查看源码</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 作品3 -->
+            <div class="work-card">
+                <img src="111.webp" alt="可爱风个人博客" class="work-img">
+                <div class="work-info">
+                    <h4>可爱风个人博客整站</h4>
+                    <div class="work-tags">
+                        <span class="work-tag">CSS3动画</span>
+                        <span class="work-tag">马卡龙配色</span>
+                        <span class="work-tag">交互效果</span>
+                    </div>
+                    <p class="work-desc">采用可爱风设计的个人博客系统，包含首页、文章列表、详情页、关于页，添加了hover动画、平滑滚动等交互效果。</p>
+                    <div class="work-links">
+                        <a href="#" class="work-link"><i class="fa-solid fa-eye"></i> 在线预览</a>
+                        <a href="#" class="work-link secondary"><i class="fa-solid fa-code"></i> 查看源码</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 作品4 -->
+            <div class="work-card">
+                <img src="#" alt="Grid布局相册" class="work-img">
+                <div class="work-info">
+                    <h4>Grid布局照片相册</h4>
+                    <div class="work-tags">
+                        <span class="work-tag">CSS Grid</span>
+                        <span class="work-tag">瀑布流</span>
+                        <span class="work-tag">图片懒加载</span>
+                    </div>
+                    <p class="work-desc">使用Grid布局实现的瀑布流照片相册，支持图片懒加载、点击放大预览，适配不同屏幕尺寸的图片展示。</p>
+                    <div class="work-links">
+                        <a href="#" class="work-link"><i class="fa-solid fa-eye"></i> 在线预览</a>
+                        <a href="#" class="work-link secondary"><i class="fa-solid fa-code"></i> 查看源码</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="copyright">© 2026 元气小袋 备案号：粤ICP备xxxxxxx号</div>
+        <div class="footer-social">
+            <a href="#"><i class="fa-brands fa-github"></i></a>
+            <a href="#"><i class="fa-brands fa-weibo"></i></a>
+            <a href="#"><i class="fa-brands fa-bilibili"></i></a>
+        </div>
+        <p class="footer-desc">愿我们都能在热爱的世界里闪闪发光 ✨</p>
+    </footer>
+</body>
+
+</html>
